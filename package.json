@@ -10,9 +10,9 @@
   "dependencies": {
     "core-js": "^3.8.3",
     "register-service-worker": "^1.7.2",
-    "vue": "^3.2.13",
-    "vue-router": "^4.0.3",
-    "vuex": "^4.0.0"
+    "vue": "^3.2.36",
+    "vue-router": "^4.0.11",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -23,6 +23,7 @@
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "@vue/compiler-sfc": "^3.2.37",
     "@vue/eslint-config-standard": "^6.1.0",
     "eslint": "^7.32.0",
     "eslint-plugin-import": "^2.25.3",
@@ -35,5 +36,10 @@
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
   }
 }
