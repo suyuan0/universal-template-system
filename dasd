@@ -1,0 +1,29 @@
+[33mcommit 118732adbda892385279de9c2c7d8cb77c80f9f4[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: 培培 <614963845@qq.com>
+Date:   Sun Jun 26 20:41:40 2022 +0800
+
+    chore(element-plus): 增加elementPlus组件
+
+[33mcommit af7eb9b155f1aac2da8855cc0b2a4c3fd8db51a0[m
+Author: 培培 <614963845@qq.com>
+Date:   Sun Jun 26 20:34:13 2022 +0800
+
+    feat(git): add lint-staged
+
+[33mcommit c9af77b66f10782b2a60c86435d21ac16146b7a6[m
+Author: 培培 <614963845@qq.com>
+Date:   Sun Jun 26 20:32:22 2022 +0800
+
+    feat(git): add husky &  commitlint
+
+[33mcommit c4ab70a3879bcc557956c302e5f63e4d8efdd0f4[m
+Author: 培培 <614963845@qq.com>
+Date:   Sun Jun 26 20:21:14 2022 +0800
+
+    feat(git): add commitizen
+
+[33mcommit 2f88cac3a468ddbe1d7bf0df50a1160dff1fd4ed[m
+Author: 培培 <614963845@qq.com>
+Date:   Sun Jun 26 20:11:38 2022 +0800
+
+    init

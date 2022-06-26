@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-const routes = [
+// 公有路由
+const publicRoutes = [
   {
     path: '/login',
     name: 'login',
@@ -10,7 +11,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes: publicRoutes
 })
 
 export default router

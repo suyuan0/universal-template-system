@@ -13,6 +13,7 @@ module.exports = {
     quotes: 'off',
     'space-before-function-paren': 'off',
     'no-tabs': 'warn',
-    'vue/multi-word-component-names': 'off'
+    'vue/multi-word-component-names': 'off',
+    'vue/valid-template-root': 'off'
   }
 }
