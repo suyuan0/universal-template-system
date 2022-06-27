@@ -1,8 +1,27 @@
+const { defineConfig } = require('@vue/cli-service')
 const path = require('path')
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
-module.exports = {
+
+module.exports = defineConfig({
+  publicPath: './',
+  devServer: {
+    open: true,
+    https: false,
+    port: 8080,
+    host: 'localhost',
+    proxy: {
+      [process.env.VUE_APP_API]: {
+        target: process.env.VUE_APP_BASE_URL,
+        changeOrigin: true,
+        pathRewrite: {
+          ['^' + process.env.VUE_APP_API]: ''
+        }
+      }
+    }
+  },
+  lintOnSave: true,
   chainWebpack(config) {
     // 设置 svg-sprite-loader
     config.module.rule('svg').exclude.add(resolve('src/icons')).end()
@@ -18,4 +37,4 @@ module.exports = {
       })
       .end()
   }
-}
+})

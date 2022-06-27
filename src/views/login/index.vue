@@ -1,42 +1,42 @@
 <template>
   <div class="login-wrapper">
     <el-form
-      class="login-form"
+      ref="loginFormRef"
       :model="loginForm"
       :rules="loginRules"
-      ref="loginFormRef"
+      class="login-form"
     >
       <div class="title-container">
         <h3>用户登录</h3>
-        <svg-icon className="svg-language" icon="language"></svg-icon>
+        <SvgIcon className="svg-language" icon="language"></SvgIcon>
       </div>
       <el-form-item prop="username">
         <span class="svg-container">
           <el-icon>
-            <svg-icon icon="user"></svg-icon>
+            <SvgIcon icon="user"></SvgIcon>
           </el-icon>
         </span>
         <el-input
+          v-model.trim="loginForm.username"
           placeholder="username"
-          v-model="loginForm.username"
         ></el-input>
       </el-form-item>
       <el-form-item class="passInput" prop="password">
         <span class="svg-container">
           <el-icon>
-            <svg-icon icon="password"></svg-icon>
+            <SvgIcon icon="password"></SvgIcon>
           </el-icon>
         </span>
         <el-input
+          v-model.trim="loginForm.password"
           :type="passwordType"
           placeholder="password"
-          v-model="loginForm.password"
         />
         <span class="svg-pwd" @click="handlePasswordEdit">
-          <el-icon> <svg-icon :icon="passwordIconStatus"></svg-icon> </el-icon
+          <el-icon> <SvgIcon :icon="passwordIconStatus"></SvgIcon> </el-icon
         ></span>
       </el-form-item>
-      <el-button type="primary" class="login-button" @click="handleLoginSubmit"
+      <el-button class="login-button" type="primary" @click="handleLoginSubmit"
         >登录
       </el-button>
     </el-form>
@@ -46,11 +46,13 @@
 <script setup>
 import { computed, reactive, ref } from 'vue'
 import { validatePassword } from './rules'
+import userApi from '../../api/user'
+import md5 from 'md5'
 
 const loginFormRef = ref(null)
 // 密码框type
 const passwordType = ref('password')
-// 切换密码框ytpe
+// 切换密码框type
 const handlePasswordEdit = () => {
   passwordType.value = passwordType.value === 'password' ? 'text' : 'password'
 }
@@ -77,21 +79,23 @@ const loginRules = reactive({
 })
 // 表单数据模型
 const loginForm = reactive({
-  username: '',
-  password: ''
+  username: 'super-admin',
+  password: '123456'
 })
 // 处理用户登录
 const handleLoginSubmit = async () => {
   if (!loginFormRef.value) return
-  await loginFormRef.value.validate((valid) => {
+  await loginFormRef.value.validate(async (valid) => {
     if (valid) {
-      alert('登录')
+      loginForm.password = md5(loginForm.password)
+      const data = await userApi.login(loginForm)
+      console.log(data)
     }
   })
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 $bg: #2d3a4b;
 $dark_gray: #889aa4;
 $light_gray: #eee;
@@ -100,6 +104,7 @@ $cursor: #fff;
   background-color: $bg;
   height: 100%;
   position: relative;
+
   .login-form {
     width: 520px;
     position: absolute;
@@ -117,7 +122,7 @@ $cursor: #fff;
         font-size: 26px;
       }
 
-      ::v-deep .svg-language {
+      ::v-deep(.svg-language) {
         position: absolute;
         top: 4px;
         right: 0;
@@ -129,7 +134,7 @@ $cursor: #fff;
       }
     }
 
-    ::v-deep .el-form-item {
+    ::v-deep(.el-form-item) {
       height: 49px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 5px;
@@ -139,13 +144,15 @@ $cursor: #fff;
         padding: 6px 5px 6px 15px;
         color: $dark_gray;
       }
+
       .svg-pwd {
         cursor: pointer;
         font-size: 16px;
         color: $dark_gray;
-        cursor: pointer;
+        cursor: pointer !important;
         user-select: none;
       }
+
       .el-input {
         height: 100%;
 
@@ -169,7 +176,7 @@ $cursor: #fff;
       }
     }
 
-    ::v-deep .passInput {
+    ::v-deep(.passInput) {
       .el-form-item__content {
         width: 100%;
       }
