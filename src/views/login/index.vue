@@ -1,43 +1,43 @@
 <template>
-  <div class="login-wrapper">
+  <div class='login-wrapper'>
     <el-form
-      ref="loginFormRef"
-      :model="loginForm"
-      :rules="loginRules"
-      class="login-form"
+      ref='loginFormRef'
+      :model='loginForm'
+      :rules='loginRules'
+      class='login-form'
     >
-      <div class="title-container">
+      <div class='title-container'>
         <h3>用户登录</h3>
-        <SvgIcon className="svg-language" icon="language"></SvgIcon>
+        <SvgIcon className='svg-language' icon='language'></SvgIcon>
       </div>
-      <el-form-item prop="username">
-        <span class="svg-container">
+      <el-form-item prop='username'>
+        <span class='svg-container'>
           <el-icon>
-            <SvgIcon icon="user"></SvgIcon>
+            <SvgIcon icon='user'></SvgIcon>
           </el-icon>
         </span>
         <el-input
-          v-model.trim="loginForm.username"
-          placeholder="username"
+          v-model.trim='loginForm.username'
+          placeholder='username'
         ></el-input>
       </el-form-item>
-      <el-form-item class="passInput" prop="password">
-        <span class="svg-container">
+      <el-form-item class='passInput' prop='password'>
+        <span class='svg-container'>
           <el-icon>
-            <SvgIcon icon="password"></SvgIcon>
+            <SvgIcon icon='password'></SvgIcon>
           </el-icon>
         </span>
         <el-input
-          v-model.trim="loginForm.password"
-          :type="passwordType"
-          placeholder="password"
+          v-model.trim='loginForm.password'
+          :type='passwordType'
+          placeholder='password'
         />
-        <span class="svg-pwd" @click="handlePasswordEdit">
-          <el-icon> <SvgIcon :icon="passwordIconStatus"></SvgIcon> </el-icon
-        ></span>
+        <span class='svg-pwd' @click='handlePasswordEdit'>
+          <el-icon> <SvgIcon :icon='passwordIconStatus'></SvgIcon> </el-icon
+          ></span>
       </el-form-item>
-      <el-button class="login-button" type="primary" @click="handleLoginSubmit"
-        >登录
+      <el-button class='login-button' type='primary' @click='handleLoginSubmit'
+      >登录
       </el-button>
     </el-form>
   </div>
@@ -45,11 +45,14 @@
 
 <script setup>
 import { computed, reactive, ref } from 'vue'
+// 密码验证规则
 import { validatePassword } from './rules'
-import userApi from '../../api/user'
 import md5 from 'md5'
+// 引入深拷贝
 import util from '../../utils/util'
-
+import { useStore } from 'vuex'
+// 使用vuex
+const store = useStore()
 const loginFormRef = ref(null)
 // 密码框type
 const passwordType = ref('password')
@@ -87,17 +90,23 @@ const loginForm = reactive({
 const handleLoginSubmit = async () => {
   const newLoginForm = util.deepCopy(loginForm)
   if (!loginFormRef.value) return
-  await loginFormRef.value.validate(async (valid) => {
-    if (valid) {
-      newLoginForm.password = md5(newLoginForm.password)
-      const data = await userApi.login(newLoginForm)
-      console.log(data)
-    }
-  })
+  try {
+    await loginFormRef.value.validate()
+    newLoginForm.password = md5(newLoginForm.password)
+    store.dispatch('user/userLogin', newLoginForm)
+  } catch {
+
+  }
+  // await loginFormRef.value.validate(async (valid) => {
+  //   if (valid) {
+  //     newLoginForm.password = md5(newLoginForm.password)
+  //     store.dispatch('user/userLogin', newLoginForm)
+  //   }
+  // })
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 $bg: #2d3a4b;
 $dark_gray: #889aa4;
 $light_gray: #eee;
