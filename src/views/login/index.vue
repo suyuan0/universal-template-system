@@ -48,6 +48,7 @@ import { computed, reactive, ref } from 'vue'
 import { validatePassword } from './rules'
 import userApi from '../../api/user'
 import md5 from 'md5'
+import util from '../../utils/util'
 
 const loginFormRef = ref(null)
 // 密码框type
@@ -84,11 +85,12 @@ const loginForm = reactive({
 })
 // 处理用户登录
 const handleLoginSubmit = async () => {
+  const newLoginForm = util.deepCopy(loginForm)
   if (!loginFormRef.value) return
   await loginFormRef.value.validate(async (valid) => {
     if (valid) {
-      loginForm.password = md5(loginForm.password)
-      const data = await userApi.login(loginForm)
+      newLoginForm.password = md5(newLoginForm.password)
+      const data = await userApi.login(newLoginForm)
       console.log(data)
     }
   })
