@@ -48,9 +48,14 @@ import { computed, reactive, ref } from 'vue'
 // 密码验证规则
 import { validatePassword } from './rules'
 import md5 from 'md5'
+// 引入路由
+import { useRouter } from 'vue-router'
+
 // 引入深拷贝
 import util from '../../utils/util'
 import { useStore } from 'vuex'
+// 使用路由
+const router = useRouter()
 // 使用vuex
 const store = useStore()
 const loginFormRef = ref(null)
@@ -93,7 +98,8 @@ const handleLoginSubmit = async () => {
   try {
     await loginFormRef.value.validate()
     newLoginForm.password = md5(newLoginForm.password)
-    await store.dispatch('user/userLogin', newLoginForm)
+    const data = await store.dispatch('user/userLogin', newLoginForm)
+    if (data.token) router.push('/')
   } catch {
 
   }
