@@ -93,7 +93,7 @@ const handleLoginSubmit = async () => {
   try {
     await loginFormRef.value.validate()
     newLoginForm.password = md5(newLoginForm.password)
-    store.dispatch('user/userLogin', newLoginForm)
+    await store.dispatch('user/userLogin', newLoginForm)
   } catch {
 
   }

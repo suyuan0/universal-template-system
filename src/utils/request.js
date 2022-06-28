@@ -2,6 +2,8 @@
 import axios from 'axios'
 import md5 from 'md5'
 import loading from './loading'
+import { ElMessage } from 'element-plus'
+
 const instance = axios.create({
   baseURL: process.env.VUE_APP_API,
   timeout: 5000
@@ -29,7 +31,14 @@ instance.interceptors.response.use(
   (response) => {
     // 关闭loading
     loading.close()
-    return response
+    // 全局响应处理
+    const { success, message, data } = response.data
+    if (success) {
+      return data
+    } else {
+      ElMessage.error(message)
+      return Promise.reject(new Error(message))
+    }
   },
   (error) => {
     // 关闭loading
