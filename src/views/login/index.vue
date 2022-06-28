@@ -44,6 +44,7 @@
 </template>
 
 <script setup>
+import { ElMessage } from 'element-plus'
 import { computed, reactive, ref } from 'vue'
 // 密码验证规则
 import { validatePassword } from './rules'
@@ -100,6 +101,7 @@ const handleLoginSubmit = async () => {
     newLoginForm.password = md5(newLoginForm.password)
     const data = await store.dispatch('user/userLogin', newLoginForm)
     if (data.token) router.push('/')
+    ElMessage.success('登录成功')
   } catch {
 
   }
