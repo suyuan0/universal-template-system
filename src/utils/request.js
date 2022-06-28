@@ -43,6 +43,13 @@ instance.interceptors.response.use(
   (error) => {
     // 关闭loading
     loading.close()
+    const message = error.toString()
+    if (message.includes('Network')) {
+      ElMessage.error('网络错误')
+    }
+    if (message.includes('timeout')) {
+      ElMessage.error('请求超时')
+    }
     return Promise.reject(error)
   }
 )
