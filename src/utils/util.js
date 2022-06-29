@@ -57,8 +57,7 @@ const generateMenuList = (data) => {
  * @param menu
  */
 const filterMenuList = (menu) => {
-  const menuList = generateMenuList(deepCopy(menu))
-  return menuList
+  return generateMenuList(deepCopy(menu))
 }
 
 export default {
