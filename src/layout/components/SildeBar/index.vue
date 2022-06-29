@@ -1,11 +1,12 @@
 <template>
   <div>
-    <MenuTree :menu='routesList' />
+    <MenuTree :menu='menuList' />
   </div>
 </template>
 <script setup>
 import { reactive } from 'vue'
 import MenuTree from '@/layout/components/SildeBar/MenuTree'
+import util from '@/utils/util'
 
 // 定义路由数据
 const routesList = reactive([
@@ -13,7 +14,8 @@ const routesList = reactive([
     id: 1,
     title: '个人中心',
     icon: 'personnel',
-    path: 'profile'
+    path: 'profile',
+    children: []
   },
   {
     id: 2,
@@ -30,7 +32,8 @@ const routesList = reactive([
         id: 31,
         title: '员工管理',
         icon: 'personnel-manage',
-        path: '/manage'
+        path: '/manage',
+        children: []
       },
       {
         id: 32,
@@ -66,6 +69,9 @@ const routesList = reactive([
     ]
   }
 ])
+
+// 获取过滤的路由数据
+const menuList = util.filterMenuList(routesList)
 </script>
 
 <style scoped>
