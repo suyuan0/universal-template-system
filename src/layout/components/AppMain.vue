@@ -1,11 +1,17 @@
 <template>
-  <div>住</div>
+  <div class='app-main'>
+
+  </div>
 </template>
 
 <script setup>
 
 </script>
 
-<style scoped>
-
+<style lang='scss' scoped>
+.app-main {
+  min-height: calc(100vh - 93px);
+  padding: 104px 20px 20px 20px;
+  box-sizing: border-box;
+}
 </style>
