@@ -15,21 +15,25 @@
 import { reactive } from 'vue'
 import MenuTree from '@/layout/components/SildeBar/MenuTree'
 import util from '@/utils/util'
+// import { useRouter } from 'vue-router'
+// import { getRoutes } from '@/utils/route'
 
+// const router = useRouter()
+// getRoutes(router.getRoutes())
 // 定义路由数据
 const routesList = reactive([
   {
     id: 1,
     title: '个人中心',
     icon: 'personnel',
-    path: 'profile',
+    path: '/profile',
     children: []
   },
   {
     id: 2,
     title: '数据可视化',
     icon: 'nested',
-    path: 'chart'
+    path: '/chart'
   },
   {
     id: 3,
@@ -40,20 +44,20 @@ const routesList = reactive([
         id: 31,
         title: '员工管理',
         icon: 'personnel-manage',
-        path: '/manage',
+        path: '/user/manage',
         children: []
       },
       {
         id: 32,
         title: '角色列表',
         icon: 'role',
-        path: '/role'
+        path: '/user/role'
       },
       {
         id: 33,
         title: '权限列表',
         icon: 'permission',
-        path: '/permission'
+        path: '/user/permission'
       }
     ]
   },
@@ -66,13 +70,13 @@ const routesList = reactive([
         id: 41,
         title: '文章排名',
         icon: 'article-ranking',
-        path: '/ranking'
+        path: '/article/ranking'
       },
       {
         id: 42,
         title: '创建文章',
         icon: 'introduce',
-        path: '/create'
+        path: '/article/create'
       }
     ]
   }
