@@ -24,6 +24,18 @@ const getUserInfo = () => {
   })
 }
 
+/**
+ * 获取员工列表
+ * @param data
+ */
+export const getUserManageList = (data) => {
+  return request({
+    url: '/user-manage/list',
+    method: 'GET',
+    data
+  })
+}
+
 export default {
   login,
   getUserInfo
