@@ -5,6 +5,7 @@ import loading from './loading'
 import { ElMessage } from 'element-plus'
 import store from '@/store'
 import router from '@/router'
+import { isCheckTimeout } from '@/utils/auth'
 
 const instance = axios.create({
   baseURL: process.env.VUE_APP_API,
@@ -21,6 +22,12 @@ instance.interceptors.request.use(
     config.headers.codeType = time
     if (store.getters.token) {
       config.headers.Authorization = `Bearer ${store.getters.token}`
+    }
+    if (store.getters.token) {
+      if (isCheckTimeout()) {
+        store.dispatch('user/logout')
+        router.push('/login')
+      }
     }
     return config
   },
