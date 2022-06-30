@@ -3,6 +3,7 @@ import axios from 'axios'
 import md5 from 'md5'
 import loading from './loading'
 import { ElMessage } from 'element-plus'
+import store from '@/store'
 
 const instance = axios.create({
   baseURL: process.env.VUE_APP_API,
@@ -17,6 +18,9 @@ instance.interceptors.request.use(
     const { icode, time } = getTestICode()
     config.headers.icode = icode
     config.headers.codeType = time
+    if (store.getters.token) {
+      config.headers.Authorization = `Bearer ${store.getters.token}`
+    }
     return config
   },
   (error) => {
