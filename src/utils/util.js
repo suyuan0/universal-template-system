@@ -40,7 +40,7 @@ const deepCopy = (data) => {
  * 删除menu数据里面的空children字段
  * @param data
  */
-const generateMenuList = (data) => {
+export const generateMenuList = (data) => {
   data.forEach((item) => {
     if (item.children && item.children.length <= 0) {
       delete item.children
@@ -56,11 +56,10 @@ const generateMenuList = (data) => {
  * 得到过滤的menu数据
  * @param menu
  */
-const filterMenuList = (menu) => {
-  return generateMenuList(deepCopy(menu))
-}
+// const filterMenuList = (menu) => {
+//   return generateMenuList(deepCopy(menu))
+// }
 
 export default {
-  deepCopy,
-  filterMenuList
+  deepCopy
 }
