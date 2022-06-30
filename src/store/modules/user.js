@@ -36,9 +36,13 @@ export default {
      * @returns {Promise<AxiosResponse<any>>}
      */
     async userLogin({ commit }, payload) {
-      const data = await userApi.login(payload)
-      commit('setToken', data.token)
-      return data
+      try {
+        const data = await userApi.login(payload)
+        commit('setToken', data.token)
+        return data
+      } catch (e) {
+        console.log(e)
+      }
     },
     /**
      * 获取用户信息
@@ -46,8 +50,12 @@ export default {
      * @returns {Promise<void>}
      */
     async getUserInfo({ commit }) {
-      const userInfo = await userApi.getUserInfo()
-      commit('setUserInfo', userInfo)
+      try {
+        const userInfo = await userApi.getUserInfo()
+        commit('setUserInfo', userInfo)
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }
