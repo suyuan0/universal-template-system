@@ -54,6 +54,11 @@ instance.interceptors.response.use(
     if (message.includes('timeout')) {
       ElMessage.error('请求超时')
     }
+    const { code } = error.response.data
+    if (code === 401 && error.response && error.response.data) {
+      ElMessage.error('请重新登录')
+      // TODO 退出登录
+    }
     return Promise.reject(error)
   }
 )

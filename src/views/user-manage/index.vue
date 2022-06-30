@@ -9,7 +9,18 @@
 </template>
 
 <script setup>
-
+import { reactive } from 'vue'
+import { getUserManageList } from '@/api/user'
+// 定义数据模型
+const userModel = reactive({
+  page: 1,
+  size: 10
+})
+const getUserList = async () => {
+  const data = await getUserManageList(userModel)
+  console.log(data)
+}
+getUserList()
 </script>
 
 <style lang='scss' scoped>
