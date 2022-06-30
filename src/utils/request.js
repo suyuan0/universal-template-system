@@ -4,6 +4,7 @@ import md5 from 'md5'
 import loading from './loading'
 import { ElMessage } from 'element-plus'
 import store from '@/store'
+import router from '@/router'
 
 const instance = axios.create({
   baseURL: process.env.VUE_APP_API,
@@ -57,7 +58,9 @@ instance.interceptors.response.use(
     const { code } = error.response.data
     if (code === 401 && error.response && error.response.data) {
       _errorMessage('请重新登录')
-      // TODO 退出登录
+      //  退出登录
+      store.dispatch('user/logout')
+      router.push('/login')
     }
     return Promise.reject(error)
   }

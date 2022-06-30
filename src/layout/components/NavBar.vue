@@ -4,34 +4,36 @@
       left
     </div>
     <div class='right-logo'>
-      <dropDown :avatar='avatar' :dropdownList='dropdownList' @command='handelCommand'></dropDown>
+      <sele :avatar='avatar' :dropdownList='dropdownList' @command='handelCommand'></sele>
     </div>
   </div>
 </template>
 
 <script setup>
-import dropDown from '@/components/dropDown'
+import sele from '@/components/sele'
 import { useStore } from 'vuex'
-import { computed, reactive } from 'vue'
+import { computed } from 'vue'
 import router from '@/router'
 
 const store = useStore()
-const dropdownList = reactive([
+const dropdownList = [
   {
     command: 'profile',
     title: '首页',
     id: 1
-  }, {
+  },
+  {
     command: 'home',
     title: '课程主页',
-    id: 1
-  }, {
+    id: 2
+  },
+  {
     command: 'exit',
     title: '退出登录',
-    id: 1,
+    id: 3,
     divided: true
   }
-])
+]
 const avatar = computed(() => {
   return store.getters.userInfo.avatar
 })
