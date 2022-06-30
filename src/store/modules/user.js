@@ -2,7 +2,7 @@ import userApi from '../../api/user'
 // 引入本地存储方法
 import { setItem, getItem } from '@/utils/storage'
 // 引入常量
-import { TOKEN } from '@/utils/constCon'
+import { TOKEN, USERINFO } from '@/utils/constCon'
 
 export default {
   namespaced: true,
@@ -10,7 +10,7 @@ export default {
     // 用户token
     token: getItem(TOKEN) || '',
     // 用户信息
-    userInfo: {}
+    userInfo: getItem(USERINFO) || '{}'
   }),
   mutations: {
     // 存储token
@@ -25,6 +25,7 @@ export default {
      */
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo
+      setItem(USERINFO, userInfo)
     }
   },
   actions: {
