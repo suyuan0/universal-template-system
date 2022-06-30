@@ -4,24 +4,25 @@
       left
     </div>
     <div class='right-logo'>
-      <drop-down :avatar='avatar' :dropdownList='dropdownList' @command='handelCommand'></drop-down>
+      <dropDown :avatar='avatar' :dropdownList='dropdownList' @command='handelCommand'></dropDown>
     </div>
   </div>
 </template>
 
 <script setup>
+import dropDown from '@/components/dropDown'
 import { useStore } from 'vuex'
 import { computed, reactive } from 'vue'
-import dropDown from '@/components/dropDown'
+import router from '@/router'
 
 const store = useStore()
 const dropdownList = reactive([
   {
-    command: 'home',
+    command: 'profile',
     title: '首页',
     id: 1
   }, {
-    command: 'profile',
+    command: 'home',
     title: '课程主页',
     id: 1
   }, {
@@ -36,7 +37,33 @@ const avatar = computed(() => {
 })
 // 下拉框事件
 const handelCommand = (command) => {
-  console.log(command)
+  switch (command) {
+    case 'profile':
+      handelToHome()
+      break
+    case 'home':
+      handleToClass()
+      break
+    case 'exit':
+      handleLogout()
+      break
+  }
+}
+
+// 点击首页方法
+const handelToHome = () => {
+  router.push('/')
+}
+
+// TODO 点击课程主页方法
+const handleToClass = () => {
+
+}
+
+// 退出方法
+const handleLogout = () => {
+  store.dispatch('user/logout')
+  router.push('/login')
 }
 </script>
 
