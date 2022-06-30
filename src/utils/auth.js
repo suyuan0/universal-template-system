@@ -2,7 +2,7 @@ import { getItem, setItem } from '@/utils/storage'
 import { TIME_STAMP, TOKEN_TIMEOUT_VALUE } from '@/utils/constCon'
 // 获取时间戳
 export const getTimeStamp = () => {
-  return getItem(TOKEN_TIMEOUT_VALUE)
+  return getItem(TIME_STAMP)
 }
 
 // 设置时间戳
@@ -16,5 +16,6 @@ export const isCheckTimeout = () => {
   const currentTime = Date.now()
   // 缓存时间戳
   const timeStamp = getTimeStamp()
+  console.log(currentTime - timeStamp, TOKEN_TIMEOUT_VALUE)
   return currentTime - timeStamp > TOKEN_TIMEOUT_VALUE
 }

@@ -44,6 +44,7 @@
 </template>
 
 <script setup>
+import { setTimeStamp } from '@/utils/auth'
 import { ElMessage } from 'element-plus'
 import { computed, reactive, ref } from 'vue'
 // 密码验证规则
@@ -100,6 +101,7 @@ const handleLoginSubmit = async () => {
     await loginFormRef.value.validate()
     newLoginForm.password = md5(newLoginForm.password)
     const data = await store.dispatch('user/userLogin', newLoginForm)
+    setTimeStamp()
     if (data.token) router.push('/')
     ElMessage.success('登录成功')
   } catch {
