@@ -17,7 +17,7 @@ const login = (data) => {
 /**
  * 获取用户信息
  */
-export const getUserInfo = () => {
+const getUserInfo = () => {
   return request({
     url: '/sys/profile',
     method: 'GET'
@@ -25,5 +25,6 @@ export const getUserInfo = () => {
 }
 
 export default {
-  login
+  login,
+  getUserInfo
 }
