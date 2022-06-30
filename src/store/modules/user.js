@@ -1,6 +1,6 @@
 import userApi from '../../api/user'
 // 引入本地存储方法
-import { setItem, getItem } from '@/utils/storage'
+import { setItem, getItem, removeItem } from '@/utils/storage'
 // 引入常量
 import { TOKEN, USERINFO } from '@/utils/constCon'
 
@@ -56,6 +56,16 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+    /**
+     * 退出登录方法
+     * @param commit
+     */
+    logout({ commit }) {
+      commit('setToken', '')
+      commit('setUserInfo', {})
+      removeItem(TOKEN)
+      removeItem(USERINFO)
     }
   }
 }
