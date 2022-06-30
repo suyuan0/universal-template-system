@@ -10,7 +10,7 @@ export default {
     // 用户token
     token: getItem(TOKEN) || '',
     // 用户信息
-    userInfo: getItem(USERINFO) || '{}'
+    userInfo: getItem(USERINFO) || {}
   }),
   mutations: {
     // 存储token
