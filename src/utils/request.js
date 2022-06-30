@@ -40,7 +40,7 @@ instance.interceptors.response.use(
     if (success) {
       return data
     } else {
-      ElMessage.error(message)
+      _errorMessage(message)
       return Promise.reject(new Error(message))
     }
   },
@@ -49,19 +49,24 @@ instance.interceptors.response.use(
     loading.close()
     const message = error.toString()
     if (message.includes('Network')) {
-      ElMessage.error('网络错误')
+      _errorMessage('网络错误')
     }
     if (message.includes('timeout')) {
-      ElMessage.error('请求超时')
+      _errorMessage('请求超时')
     }
     const { code } = error.response.data
     if (code === 401 && error.response && error.response.data) {
-      ElMessage.error('请重新登录')
+      _errorMessage('请重新登录')
       // TODO 退出登录
     }
     return Promise.reject(error)
   }
 )
+
+// 失败信息
+const _errorMessage = (message) => {
+  ElMessage.error(message)
+}
 
 // 统一传参
 const requset = (options) => {
