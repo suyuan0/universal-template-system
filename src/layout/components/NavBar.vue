@@ -4,27 +4,33 @@
       left
     </div>
     <div class='right-logo'>
-      <el-dropdown trigger='click' @command='handelCommand'>
-        <el-avatar :src='avatar' shape='square'></el-avatar>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command='home'>首页</el-dropdown-item>
-            <el-dropdown-item command='profile'>课程主页</el-dropdown-item>
-            <el-dropdown-item command='exit' divided>退出登录</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-
-      </el-dropdown>
-
+      <drop-down :avatar='avatar' :dropdownList='dropdownList' @command='handelCommand'></drop-down>
     </div>
   </div>
 </template>
 
 <script setup>
 import { useStore } from 'vuex'
-import { computed } from 'vue'
+import { computed, reactive } from 'vue'
+import dropDown from '@/components/dropDown'
 
 const store = useStore()
+const dropdownList = reactive([
+  {
+    command: 'home',
+    title: '首页',
+    id: 1
+  }, {
+    command: 'profile',
+    title: '课程主页',
+    id: 1
+  }, {
+    command: 'exit',
+    title: '退出登录',
+    id: 1,
+    divided: true
+  }
+])
 const avatar = computed(() => {
   return store.getters.userInfo.avatar
 })
@@ -42,7 +48,7 @@ const handelCommand = (command) => {
   justify-content: space-between;
   padding-right: 16px;
 
-  .el-dropdown {
+  ::v-deep(.el-dropdown) {
     margin-top: 5px;
     margin-right: 10px;
     cursor: pointer;
