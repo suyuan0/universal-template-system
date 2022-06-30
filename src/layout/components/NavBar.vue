@@ -4,13 +4,13 @@
       left
     </div>
     <div class='right-logo'>
-      <sele :avatar='avatar' :dropdownList='dropdownList' @command='handelCommand'></sele>
+      <DropDown :avatar='avatar' :dropdownList='dropdownList' @command='handelCommand'></DropDown>
     </div>
   </div>
 </template>
 
 <script setup>
-import sele from '@/components/sele'
+import DropDown from '@/components/DropDown'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 import router from '@/router'
