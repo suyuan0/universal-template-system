@@ -60,6 +60,17 @@ export const getUserDetailInfo = (id) => {
   })
 }
 
+/**
+ * 查看用户角色
+ * @param id
+ */
+export const getUserRole = (id) => {
+  return request({
+    url: `/user-manage/role/${id}`,
+    method: 'GET'
+  })
+}
+
 export default {
   login,
   getUserInfo

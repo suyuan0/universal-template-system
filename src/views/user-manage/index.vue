@@ -23,18 +23,20 @@
         <!--按钮-->
         <template v-slot:action='{row}'>
           <el-button size='small' type='primary' @click='ToViewUserInfo(row)'>查看</el-button>
-          <el-button size='small' type='info'>角色</el-button>
+          <el-button size='small' type='info' @click='ToViewUserRole(row)'>角色</el-button>
           <el-button size='small' type='danger' @click='handleDeleteUser(row)'>删除</el-button>
         </template>
       </MyTable>
     </el-card>
+    <MyDialog :dialogVisible='dialogVisible' title='配置角色'>123</MyDialog>
   </div>
 </template>
 
 <script setup>
 import { reactive, ref } from 'vue'
-import { getUserManageList, deleteUserList } from '@/api/user'
+import { getUserManageList, deleteUserList, getUserRole } from '@/api/user'
 import MyTable from '@/components/MyTable'
+import MyDialog from '@/components/MyDialog'
 import { MessageBox } from '@/utils/messageBox'
 import { ElMessage } from 'element-plus'
 import router from '@/router'
@@ -43,8 +45,12 @@ const userModel = reactive({
   page: 1,
   size: 5
 })
+// 模态框的显示隐藏
+const dialogVisible = ref(false)
 // 表格数据
 const data = ref([])
+// 用户角色
+const userRole = ref([])
 // 条数
 const tal = ref(0)
 const getUserList = async (model) => {
@@ -71,6 +77,13 @@ const handleDeleteUser = async (row) => {
 // 查看用户信息
 const ToViewUserInfo = (row) => {
   router.push(`/user/info/${row._id}`)
+}
+// 查看用户角色
+const ToViewUserRole = async (row) => {
+  const { role } = await getUserRole(row._id)
+  dialogVisible.value = true
+  userRole.value = role
+  console.log(role)
 }
 // 定义表格的列
 const column = [
