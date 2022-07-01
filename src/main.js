@@ -9,8 +9,11 @@ import './styles/index.scss'
 import installIcons from './icons'
 import './permission'
 import '@/utils/route'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 
 const app = createApp(App)
 installIcons(app)
-app.use(ElementPlus)
+app.use(ElementPlus, {
+  locale: zhCn
+})
 app.use(store).use(router).mount('#app')
