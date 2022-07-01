@@ -17,12 +17,22 @@
       </template>
     </el-table-column>
   </el-table>
+  <el-pagination
+    v-if='page.size'
+    :currentPage='userModel.page'
+    :page-size='userModel.size'
+    :page-sizes='[5,10, 15, 20]'
+    :total='total'
+    layout='total, sizes, prev, pager, next, jumper'
+    @size-change='(size)=>handleChangePagination("size",size)'
+    @current-change='page=>handleChangePagination("page",page)'
+  />
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
+import { computed, defineProps, defineEmits } from 'vue'
 
-defineProps({
+const props = defineProps({
   data: {
     type: Array,
     default: () => []
@@ -30,10 +40,30 @@ defineProps({
   cols: {
     type: Array,
     default: () => []
+  },
+  total: Number,
+  userModel: {
+    type: Object,
+    default: () => {
+    }
   }
+})
+const emit = defineEmits(['input', 'change'])
+const handleChangePagination = (type, value) => {
+  const Person = {
+    ...props.userModel,
+    [type]: value
+  }
+  emit('input', Person)
+  emit('change', Person)
+}
+const page = computed(() => {
+  return props.userModel || {}
 })
 </script>
 
-<style scoped>
-
+<style lang='scss' scoped>
+.el-table {
+  margin-bottom: 20px;
+}
 </style>

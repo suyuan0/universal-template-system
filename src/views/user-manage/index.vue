@@ -5,7 +5,7 @@
       <el-button type='success'>excel 导出</el-button>
     </el-card>
     <el-card>
-      <MyTable :cols='column' :data='data'>
+      <MyTable v-model:userModel='userModel' :cols='column' :data='data' :total='tal' @change='change'>
         <!--头像-->
         <template v-slot:avatar='{row:{avatar}}'>
           <el-avatar :size='60' :src='avatar'></el-avatar>
@@ -42,16 +42,22 @@ const userModel = reactive({
 })
 // 表格数据
 const data = ref([])
-const getUserList = async () => {
+// 条数
+const tal = ref(0)
+const getUserList = async (model) => {
   const {
     list,
     total,
-    size
-  } = await getUserManageList(userModel)
+    page
+  } = await getUserManageList(model)
+  userModel.page = page - 0
   data.value = list
-  console.log(total, size)
+  tal.value = total
 }
-getUserList()
+getUserList(userModel)
+const change = async (Person) => {
+  await getUserList(Person)
+}
 // 定义表格的列
 const column = [
   {
