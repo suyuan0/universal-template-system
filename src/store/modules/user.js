@@ -11,7 +11,7 @@ export default {
     // 用户token
     token: getItem(TOKEN) || '',
     // 用户信息
-    userInfo: getItem(USERINFO) || {}
+    userInfo: {}
   }),
   mutations: {
     // 存储token
@@ -26,7 +26,6 @@ export default {
      */
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo
-      setItem(USERINFO, userInfo)
     }
   },
   actions: {
