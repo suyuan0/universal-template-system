@@ -22,7 +22,7 @@
         </template>
         <!--按钮-->
         <template v-slot:action='{row}'>
-          <el-button size='small' type='primary' @click='ToViewUserInfo'>查看</el-button>
+          <el-button size='small' type='primary' @click='ToViewUserInfo(row)'>查看</el-button>
           <el-button size='small' type='info'>角色</el-button>
           <el-button size='small' type='danger' @click='handleDeleteUser(row)'>删除</el-button>
         </template>
@@ -70,7 +70,6 @@ const handleDeleteUser = async (row) => {
 }
 // 查看用户信息
 const ToViewUserInfo = (row) => {
-  console.log(router.getRoutes())
   router.push(`/user/info/${row._id}`)
 }
 // 定义表格的列
