@@ -11,6 +11,7 @@ const whiteList = ['/login']
 // 实现路由守卫
 router.beforeEach(async (to, from, next) => {
   // 获取token
+  document.title = to.meta.title
   const token = store.getters.token
   if (token) {
     if (to.path === '/login') {

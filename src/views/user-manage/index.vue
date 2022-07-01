@@ -18,7 +18,7 @@
         </template>
         <!--开通时间-->
         <template v-slot:time='{row:{openTime}}'>
-          {{ openTime }}
+          {{ $filters.deteFilter(openTime) }}
         </template>
         <!--按钮-->
         <template v-slot:action=''>
