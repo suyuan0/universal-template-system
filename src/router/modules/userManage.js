@@ -18,7 +18,7 @@ export default {
       }
     },
     {
-      path: '/user/info/"id',
+      path: '/user/info/:id',
       name: 'userInfo',
       component: () => import('@/views/user-info'),
       meta: {

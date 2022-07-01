@@ -22,7 +22,7 @@
         </template>
         <!--按钮-->
         <template v-slot:action='{row}'>
-          <el-button size='small' type='primary'>查看</el-button>
+          <el-button size='small' type='primary' @click='ToViewUserInfo'>查看</el-button>
           <el-button size='small' type='info'>角色</el-button>
           <el-button size='small' type='danger' @click='handleDeleteUser(row)'>删除</el-button>
         </template>
@@ -37,6 +37,7 @@ import { getUserManageList, deleteUserList } from '@/api/user'
 import MyTable from '@/components/MyTable'
 import { MessageBox } from '@/utils/messageBox'
 import { ElMessage } from 'element-plus'
+import router from '@/router'
 // 定义数据模型
 const userModel = reactive({
   page: 1,
@@ -66,6 +67,11 @@ const handleDeleteUser = async (row) => {
   await deleteUserList(row._id)
   await getUserList(userModel)
   ElMessage.success(`删除 ${row.username} 成功`)
+}
+// 查看用户信息
+const ToViewUserInfo = (row) => {
+  console.log(router.getRoutes())
+  router.push(`/user/info/${row._id}`)
 }
 // 定义表格的列
 const column = [
