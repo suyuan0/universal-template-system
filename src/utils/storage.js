@@ -1,5 +1,5 @@
 // 定义存储的方法
-const storage = window.localStorage
+const storage = window.sessionStorage
 
 /**
  * 存储数据
