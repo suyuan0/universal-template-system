@@ -66,4 +66,18 @@ const page = computed(() => {
 .el-table {
   margin-bottom: 20px;
 }
+
+.el-pagination {
+  ::v-deep(.el-input__wrapper) {
+    box-shadow: none;
+  }
+
+  ::v-deep(.el-select .el-input.is-focus .el-input__wrapper) {
+    box-shadow: none !important;
+  }
+
+  ::v-deep(.el-select .el-input__wrapper.is-focus) {
+    box-shadow: none !important;
+  }
+}
 </style>
