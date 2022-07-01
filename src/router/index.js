@@ -6,7 +6,7 @@ import roleList from './modules/roleList'
 import permissionList from './modules/permissionList'
 import userManage from './modules/userManage'
 // 公有路由
-const publicRoutes = [
+export const publicRoutes = [
   {
     path: '/login',
     name: 'login',

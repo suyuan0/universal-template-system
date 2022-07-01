@@ -1,6 +1,7 @@
 import userApi from '../../api/user'
 // 引入本地存储方法
 import { setItem, getItem, removeItem } from '@/utils/storage'
+import { resetRouter } from '@/utils/removeRouter'
 // 引入常量
 import { TOKEN, USERINFO } from '@/utils/constCon'
 
@@ -53,6 +54,7 @@ export default {
       try {
         const userInfo = await userApi.getUserInfo()
         commit('setUserInfo', userInfo)
+        return userInfo
       } catch (e) {
         console.log(e)
       }
@@ -62,6 +64,7 @@ export default {
      * @param commit
      */
     logout({ commit }) {
+      resetRouter()
       commit('setToken', '')
       commit('setUserInfo', {})
       removeItem(TOKEN)

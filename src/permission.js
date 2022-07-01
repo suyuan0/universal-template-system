@@ -9,7 +9,7 @@ import store from '@/store'
 const whiteList = ['/login']
 
 // 实现路由守卫
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   // 获取token
   const token = store.getters.token
   if (token) {
@@ -17,7 +17,14 @@ router.beforeEach((to, from, next) => {
       next(from.path)
     } else {
       if (!store.getters.hasUserInfo) {
-        store.dispatch('user/getUserInfo')
+        const { permission } = await store.dispatch('user/getUserInfo')
+        const filterRoutes = await store.dispatch(
+          'permission/filterRoutes',
+          permission.menus
+        )
+        filterRoutes.forEach((item) => {
+          router.addRoute(item)
+        })
       }
       next()
     }
