@@ -36,6 +36,18 @@ export const getUserManageList = (data) => {
   })
 }
 
+/**
+ * 删除员工
+ * @param id
+ * @returns {AxiosPromise}
+ */
+export const deleteUserList = (id) => {
+  return request({
+    url: `/user-manage/detele/${id}`,
+    method: 'GET'
+  })
+}
+
 export default {
   login,
   getUserInfo

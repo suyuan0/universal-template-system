@@ -21,10 +21,10 @@
           {{ $filters.deteFilter(openTime) }}
         </template>
         <!--按钮-->
-        <template v-slot:action=''>
+        <template v-slot:action='{row}'>
           <el-button size='small' type='primary'>查看</el-button>
           <el-button size='small' type='info'>角色</el-button>
-          <el-button size='small' type='danger'>删除</el-button>
+          <el-button size='small' type='danger' @click='handleDeleteUser(row)'>删除</el-button>
         </template>
       </MyTable>
     </el-card>
@@ -33,8 +33,10 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
-import { getUserManageList } from '@/api/user'
+import { getUserManageList, deleteUserList } from '@/api/user'
 import MyTable from '@/components/MyTable'
+import { MessageBox } from '@/utils/messageBox'
+import { ElMessage } from 'element-plus'
 // 定义数据模型
 const userModel = reactive({
   page: 1,
@@ -57,6 +59,13 @@ const getUserList = async (model) => {
 getUserList(userModel)
 const change = async (Person) => {
   await getUserList(Person)
+}
+// 删除用户
+const handleDeleteUser = async (row) => {
+  await MessageBox(row.username)
+  await deleteUserList(row._id)
+  await getUserList(userModel)
+  ElMessage.success(`删除 ${row.username} 成功`)
 }
 // 定义表格的列
 const column = [
