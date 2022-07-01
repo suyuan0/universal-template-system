@@ -51,9 +51,9 @@
         <tr>
           <td class='context'>
             <p v-for='(item,i) in userInfo.experience' :key='i'>
-              {{ $filters.deteFilter(item.startTime) }}
+              {{ $filters.deteFilter(item.startTime, 'YYYY/DD') }}
               ----
-              {{ $filters.deteFilter(item.endTime) }}
+              {{ $filters.deteFilter(item.endTime, 'YYYY/DD') }}
               <span>{{ item.title }}</span>
               {{ item.desc }}
             </p>
