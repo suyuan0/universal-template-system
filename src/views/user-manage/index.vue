@@ -28,13 +28,24 @@
         </template>
       </MyTable>
     </el-card>
-    <MyDialog :dialogVisible='dialogVisible' title='配置角色'>123</MyDialog>
+    <MyDialog :dialogVisible='dialogVisible' title='配置角色' @cancle='cancel'
+              @determine='handleAssignRole' @handleColse='handleColse'>
+      <el-checkbox-group v-model='userRole' @change='checkboxChange'>
+        <el-checkbox label='超级管理员' />
+        <el-checkbox label='管理员' />
+        <el-checkbox label='人事经理' />
+        <el-checkbox label='销售经理' />
+        <el-checkbox label='保安队长' />
+        <el-checkbox label='员工' />
+      </el-checkbox-group>
+    </MyDialog>
   </div>
 </template>
 
 <script setup>
 import { reactive, ref } from 'vue'
-import { getUserManageList, deleteUserList, getUserRole } from '@/api/user'
+import { getUserManageList, deleteUserList, getUserRole, AssignRolesToEmployees } from '@/api/user'
+import { getRoleList } from '@/api/role'
 import MyTable from '@/components/MyTable'
 import MyDialog from '@/components/MyDialog'
 import { MessageBox } from '@/utils/messageBox'
@@ -51,6 +62,15 @@ const dialogVisible = ref(false)
 const data = ref([])
 // 用户角色
 const userRole = ref([])
+// 角色数组
+const roleArray = ref([])
+// 角色列表
+const roleList = ref([])
+// 角色列表模型
+const roleListModel = ref({
+  id: '',
+  roles: []
+})
 // 条数
 const tal = ref(0)
 const getUserList = async (model) => {
@@ -69,7 +89,7 @@ const change = async (Person) => {
 }
 // 删除用户
 const handleDeleteUser = async (row) => {
-  await MessageBox(row.username)
+  await MessageBox(`确定要删除 ${row.username} 吗?`)
   await deleteUserList(row._id)
   await getUserList(userModel)
   ElMessage.success(`删除 ${row.username} 成功`)
@@ -81,9 +101,39 @@ const ToViewUserInfo = (row) => {
 // 查看用户角色
 const ToViewUserRole = async (row) => {
   const { role } = await getUserRole(row._id)
+  const data = await getRoleList()
   dialogVisible.value = true
-  userRole.value = role
-  console.log(role)
+  roleList.value = data
+  userRole.value = role.map(v => v.title)
+  roleListModel.value.id = row._id
+}
+// 分配用户角色
+const handleAssignRole = async () => {
+  roleListModel.value.roles = []
+  roleList.value.forEach(item => {
+    userRole.value.forEach(v => {
+      if (v === item.title) {
+        roleListModel.value.roles.push(item)
+      }
+    })
+  })
+  const {
+    id,
+    roles
+  } = roleListModel.value
+  await AssignRolesToEmployees(id, roles)
+}
+const checkboxChange = (value) => {
+  roleArray.value = value
+}
+// 关闭模态框
+const handleColse = async (value) => {
+  await MessageBox('确定要关闭吗')
+  value()
+  dialogVisible.value = false
+}
+const cancel = () => {
+  dialogVisible.value = false
 }
 // 定义表格的列
 const column = [

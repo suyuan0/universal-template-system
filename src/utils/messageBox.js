@@ -3,7 +3,7 @@
 import { ElMessageBox } from 'element-plus'
 
 export const MessageBox = async (name) => {
-  await ElMessageBox.confirm(`确定要删除 ${name} 吗?`, {
+  await ElMessageBox.confirm(name, {
     type: 'warning',
     draggable: true
   })

@@ -71,6 +71,15 @@ export const getUserRole = (id) => {
   })
 }
 
+export const AssignRolesToEmployees = (id, roles) => {
+  // console.log(Object.prototype.toString.call(roles))
+  return request({
+    url: `/user-manage/update-role/${id}`,
+    method: 'POST',
+    data: roles
+  })
+}
+
 export default {
   login,
   getUserInfo
