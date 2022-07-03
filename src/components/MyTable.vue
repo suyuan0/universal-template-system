@@ -1,6 +1,7 @@
 <template>
   <el-table
     :data='data'
+    :row-key='rowKey'
     border
     stripe>
     <el-table-column
@@ -46,6 +47,10 @@ const props = defineProps({
     type: Object,
     default: () => {
     }
+  },
+  rowKey: {
+    type: String,
+    default: 'id'
   }
 })
 const emit = defineEmits(['input', 'change'])
