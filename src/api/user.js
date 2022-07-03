@@ -71,6 +71,13 @@ export const getUserRole = (id) => {
   })
 }
 
+/**
+ * 分配角色权限
+ * @param id
+ * @param roles
+ * @returns {AxiosPromise}
+ * @constructor
+ */
 export const AssignRolesToEmployees = (id, roles) => {
   // console.log(Object.prototype.toString.call(roles))
   return request({
