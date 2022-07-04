@@ -8,7 +8,6 @@ export default {
   }),
   mutations: {
     setTagsView(state, view) {
-      console.log(view)
       const tagsView = state.TagsView.find((item) => item.path === view.path)
       if (!tagsView) {
         state.TagsView.push(view)
