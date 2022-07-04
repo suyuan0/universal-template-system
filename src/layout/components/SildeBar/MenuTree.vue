@@ -27,6 +27,8 @@ const props = defineProps({
 })
 </script>
 
-<style scoped>
-
+<style lang='scss' scoped>
+.el-menu {
+  border-right: none;
+}
 </style>
