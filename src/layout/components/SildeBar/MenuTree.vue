@@ -1,5 +1,6 @@
 <template>
   <el-menu
+    :collapse='$store.getters.isCollapse'
     :default-active='$route.path'
     active-text-color='#fff'
     background-color='#304156'

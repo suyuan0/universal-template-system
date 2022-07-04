@@ -4,7 +4,8 @@ const getters = {
   hasUserInfo: (state) => {
     return JSON.stringify(state.user.userInfo) !== '{}'
   },
-  TagsView: (state) => state.tagsview.TagsView
+  TagsView: (state) => state.tagsview.TagsView,
+  isCollapse: (state) => state.menu.isCollapse
 }
 
 export default getters

@@ -1,7 +1,7 @@
 <template>
   <div class='app-wrapper'>
-    <SideBar class='sidebar-container'></SideBar>
-    <div class='main-container'>
+    <SideBar :style='{"width":sideBarWidth}' class='sidebar-container'></SideBar>
+    <div :style='{"width":`calc(100% - ${sideBarWidth})`}' class='main-container'>
       <div class='fixed-header'>
         <NavBar></NavBar>
         <TagsView></TagsView>
@@ -16,6 +16,14 @@ import SideBar from './components/SildeBar'
 import NavBar from '@/layout/components/NavBar'
 import AppMain from '@/layout/components/AppMain'
 import TagsView from '@/components/TagsView'
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
+// 计算sideBar的宽
+const sideBarWidth = computed(() => {
+  return store.getters.isCollapse ? '54px' : '210px'
+})
 </script>
 
 <style lang='scss' scoped>
@@ -39,11 +47,12 @@ $SideWidth: 210px;
   }
 
   .main-container {
-    width: calc(100% - $SideWidth);
+    //width: v-bind(sideBarWidth) px;
     height: 100%;
     position: relative;
     margin-left: 210px;
-    .fixed-header{
+
+    .fixed-header {
       position: fixed;
       top: 0;
       right: 0;

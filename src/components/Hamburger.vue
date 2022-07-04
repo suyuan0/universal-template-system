@@ -1,10 +1,16 @@
 <template>
-  <div class='Hamburger'>
+  <div class='Hamburger' @click='handleIsCollapse'>
     <svg-icon icon='hamburger-opened' />
   </div>
 </template>
 
 <script setup>
+import { useStore } from 'vuex'
+
+const store = useStore()
+const handleIsCollapse = () => {
+  store.commit('menu/changeIsCollapse')
+}
 </script>
 
 <style lang='scss' scoped>
