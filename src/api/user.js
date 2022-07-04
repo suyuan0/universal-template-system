@@ -83,7 +83,7 @@ export const AssignRolesToEmployees = (id, roles) => {
   return request({
     url: `/user-manage/update-role/${id}`,
     method: 'POST',
-    data: roles
+    data: { roles }
   })
 }
 

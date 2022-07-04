@@ -122,6 +122,9 @@ const handleAssignRole = async () => {
     roles
   } = roleListModel.value
   await AssignRolesToEmployees(id, roles)
+  dialogVisible.value = false
+  getUserList(userModel)
+  ElMessage.success('更新成功')
 }
 const checkboxChange = (value) => {
   roleArray.value = value
