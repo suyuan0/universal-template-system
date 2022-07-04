@@ -1,7 +1,8 @@
 <template>
   <div class='nav-bar'>
     <div class='left-logo'>
-      left
+      <Hamburger></Hamburger>
+      <Breadcrumb></Breadcrumb>
     </div>
     <div class='right-logo'>
       <DropDown :avatar='avatar' :dropdownList='dropdownList' @command='handelCommand'></DropDown>
@@ -14,6 +15,8 @@ import DropDown from '@/components/DropDown'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 import router from '@/router'
+import Breadcrumb from '@/components/Breadcrumb'
+import Hamburger from '@/components/Hamburger'
 
 const store = useStore()
 const dropdownList = [
@@ -85,6 +88,10 @@ const handleLogout = () => {
     .el-avatar {
       background: transparent;
     }
+  }
+
+  .left-logo {
+    display: flex;
   }
 
 }
